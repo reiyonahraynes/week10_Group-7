@@ -46,3 +46,13 @@ def read_parquet_records(file_path: str | Path, expected_sha256: Optional[str] =
     df.insert(0, "source_record", range(1, len(df) + 1))
     df.insert(0, "source_file", path.name)
     return df
+
+def map_canonical_columns(df: pd.DataFrame, column_mapping: Dict[str, str], required_columns: List[str],) -> pd.DataFrame:
+    mapped_df = df.rename(columns = column_mapping)
+    missing = [column for column in required_columns if column not in mapped_df.columns]
+    if missing:
+        raise FileFormatError(f"Missing required canonical column(s): {missing}")
+    
+    canonical_order = ["source_file", "source_record"] + required_columns
+    extra_columns = [c for c in mapped_df.columns if c not in canonical_order]
+    return mapped_df[canonical_order + extra_columns]
