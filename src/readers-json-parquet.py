@@ -31,3 +31,18 @@ def read_json_records(file_path: str | Path, records_key: str = "records", expec
     df.insert(0, "source_record", range(1, len(df) + 1))
     df.insert(0, "source_file", path.name)
     return df
+
+def read_parquet_records(file_path: str | Path, expected_sha256: Optional[str] = None, expected_bytes: Optional[int] = None,) -> pd.DataFrame:
+    path = validate_input_file(file_path, expected_sha256 = expected_sha256, expected_bytes = expected_bytes)
+    if path.suffix.lower() != ".parquet":
+        raise FileFormatError(f"Expected a .parquet file, got: {path.name}")
+
+    try:
+        df = pd.read_parquet(path)
+        df = df.astype(str)
+    except Exception as exc:
+        raise FileFormatError(f"Failed to parse Parquet '{path.name}': {exc}") from exc
+
+    df.insert(0, "source_record", range(1, len(df) + 1))
+    df.insert(0, "source_file", path.name)
+    return df
