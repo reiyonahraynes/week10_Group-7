@@ -1,7 +1,7 @@
 import unittest
 from pathlib import Path
 from src.readers import FileFormatError, load_configuration
-from src.member2_readers import read_json_records, read_parquet_records, map_canonical_columns
+from src.readers_json_parquet import read_json_records, read_parquet_records, map_canonical_columns
 
 
 class TestMember2Readers(unittest.TestCase):
@@ -11,13 +11,13 @@ class TestMember2Readers(unittest.TestCase):
         self.data_dir = Path(self.config["data_dir"])
         self.json_spec = self.config["file_specs"]["country_records.json"]
         self.parquet_spec = self.config["file_specs"]["country_records.parquet"]
-        self.canonical_cols = self.config["manifest"]["canonical_columns"]
-
+        self.canonical_cols = self.config["manifest"]["canonical_order"]
+        
     def test_json_reader(self) -> None:
         json_path = self.data_dir / self.json_spec["file"]
         df = read_json_records(
             file_path = json_path,
-            records_key = self.json_spec.get("records_key", "records"),
+            records_key = self.json_spec["record_path"],
             expected_sha256 = self.json_spec["sha256"],
             expected_bytes = self.json_spec["bytes"],
         )
@@ -47,7 +47,7 @@ class TestMember2Readers(unittest.TestCase):
         )
         mapped = map_canonical_columns(
             df = df,
-            column_mapping = self.json_spec["column_mapping"],
+            column_mapping = self.json_spec["source_to_canonical"],
             required_columns = self.canonical_cols,
         )
         for col in self.canonical_cols:
