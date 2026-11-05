@@ -1,9 +1,4 @@
-"""Member 5: ProcessingRun (staging, audit log, publishing).
 
-Everything is written to a staging folder first. Only if every step and check
-passes is staging swapped into the output folder; any failure deletes staging
-and leaves the output folder untouched.
-"""
 import json
 import os
 import shutil
