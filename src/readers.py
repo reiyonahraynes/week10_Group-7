@@ -8,12 +8,10 @@ SUPPORTED_EXTENSIONS: Set[str] = {".csv", ".xlsx", ".json", ".parquet"}
 
 
 class FileFormatError(Exception):
-    """Raised when an input file is missing, unsupported, or fails format/hash checks."""
     pass
 
 
 def load_configuration(config_path: str | Path = "config.json") -> Dict[str, Any]:
-    """Load config.json and attach the parsed manifest.json dictionary."""
     cfg_path = Path(config_path)
     if not cfg_path.is_file():
         raise FileNotFoundError(f"Configuration file not found: {cfg_path}")
@@ -36,7 +34,6 @@ def load_configuration(config_path: str | Path = "config.json") -> Dict[str, Any
 
 
 def compute_sha256(file_path: str | Path) -> str:
-    """Compute the SHA-256 hex digest of a file for manifest verification."""
     path = Path(file_path)
     hasher = hashlib.sha256()
     with path.open("rb") as f:
@@ -50,7 +47,6 @@ def validate_input_file(
     expected_sha256: Optional[str] = None,
     expected_bytes: Optional[int] = None,
 ) -> Path:
-    """Verify that the input file exists, has a supported extension, and matches size/hash."""
     path = Path(file_path)
     if not path.is_file():
         raise FileNotFoundError(f"Input file does not exist: {path}")
@@ -83,7 +79,6 @@ def read_csv_records(
     expected_sha256: Optional[str] = None,
     expected_bytes: Optional[int] = None,
 ) -> pd.DataFrame:
-    """Read a CSV input file preserving raw string values and 1-based source_record order."""
     path = validate_input_file(
         file_path, expected_sha256=expected_sha256, expected_bytes=expected_bytes
     )
@@ -119,7 +114,6 @@ def read_excel_records(
     expected_sha256: Optional[str] = None,
     expected_bytes: Optional[int] = None,
 ) -> pd.DataFrame:
-    """Read country_records.xlsx from 'observations' sheet preserving raw strings and 1-based order."""
     path = validate_input_file(
         file_path, expected_sha256=expected_sha256, expected_bytes=expected_bytes
     )
