@@ -10,7 +10,6 @@ from src.readers import (
 
 
 class TestMember1Readers(unittest.TestCase):
-    """Automated checks for Member 1: CSV/Excel readers, config, and reader failure checks."""
 
     def setUp(self) -> None:
         self.config = load_configuration("config.json")
@@ -27,7 +26,6 @@ class TestMember1Readers(unittest.TestCase):
             read_csv_records(missing_path)
 
     def test_unsupported_format_raises_error(self) -> None:
-        """Category 3: Existing unsupported format (unsupported.txt) must stop processing."""
         unsupported_path = self.data_dir / "unsupported.txt"
         with self.assertRaises(FileFormatError):
             validate_input_file(unsupported_path)
@@ -35,7 +33,6 @@ class TestMember1Readers(unittest.TestCase):
             read_csv_records(unsupported_path)
 
     def test_csv_reader_recovers_1712_rows_and_drops_export_note(self) -> None:
-        """Verify country_records.csv loads 1,712 rows, checks SHA256, and drops export_note."""
         csv_path = self.data_dir / self.csv_spec["file"]
         df = read_csv_records(
             file_path=csv_path,
@@ -52,7 +49,6 @@ class TestMember1Readers(unittest.TestCase):
         self.assertEqual(int(df["source_record"].iloc[-1]), 1712)
 
     def test_excel_reader_recovers_1712_rows_from_observations_sheet(self) -> None:
-        """Verify country_records.xlsx skips Readme and loads 1,712 rows from observations."""
         xlsx_path = self.data_dir / self.xlsx_spec["file"]
         df = read_excel_records(
             file_path=xlsx_path,
@@ -66,7 +62,6 @@ class TestMember1Readers(unittest.TestCase):
         self.assertEqual(int(df["source_record"].iloc[-1]), 1712)
 
     def test_failure_csv_reader_configuration(self) -> None:
-        """Verify failure-test CSVs (UTF-8, comma, no comments) can be parsed."""
         fail_cfg = self.config["failure_test_csv_settings"]
         missing_col_df = read_csv_records(
             file_path=self.data_dir / "missing_column.csv",
