@@ -1,0 +1,13 @@
+{
+  "manifest_path": "data/manifest.json",
+  "data_dir": "data",
+  "staging_dir": "staging",
+  "output_dir": "outputs",
+  "reporting_year": 2007,
+  "failure_test_csv_settings": {
+    "encoding": "utf-8",
+    "separator": ",",
+    "comment_prefix": null,
+    "ignore_columns": []
+  }
+}

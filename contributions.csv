@@ -1,0 +1,2 @@
+member,git_identity,branch,code_symbol,code_path,code_commit,test_path,test_commit,review_reference
+Member 1,LINDSAY NICOLE MALDIA <lindsaynicole.maldia@ust.edu.ph>,member1-readers,read_csv_records,src/readers.py,ee39a6b7627204dd225af046efcebaa81029822b,tests/test_readers.py,a3b9c2c5100c866f6c3df2e6224e9933aa92b563,pending
