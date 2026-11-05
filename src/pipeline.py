@@ -91,7 +91,7 @@ class ProcessingRun:
     def load(self) -> None:
         """Load config and manifest; folders resolve relative to the config file."""
         previous = Path.cwd()
-        os.chdir(self.base_dir)  # the manifest path in config.json is relative
+        os.chdir(self.base_dir)
         try:
             self.config = load_configuration(self.config_path.name)
         finally:
@@ -178,7 +178,6 @@ class ProcessingRun:
         canonical = tables[names[0]]
         out = self.staging_dir
 
-        # 1. Compare the recovered tables by key, and check dataset-level controls.
         comparison = compare_all(tables) if len(tables) > 1 else pd.DataFrame()
         for _, r in comparison.iterrows():
             self.check("format_disagreement", f"{r['compared']}_agrees_with_{r['reference']}", True,
@@ -188,7 +187,7 @@ class ProcessingRun:
             self.log("compare", "all", "key_comparison", "match on (country, year); floats within 1e-9",
                      len(names), len(names))
         controls = self.manifest.get("controls", {})
-        if len(canonical) > 100:  # full dataset only, not the small failure-test files
+        if len(canonical) > 100:
             if "countries" in controls:
                 self.check("count_mismatch", "control_country_count", controls["countries"],
                            int(canonical["country"].nunique()))
@@ -197,7 +196,6 @@ class ProcessingRun:
                 self.check("count_mismatch", "canonical_row_count", rows, len(canonical))
         self._fail_if_any("count_mismatch", "format_disagreement")
 
-        # 2. Analysis (reporting year and matrix selection come from the config).
         year = int(self.year_override if self.year_override is not None else self.config.get("reporting_year", 2007))
         matrix_years = self.config.get("matrix_years")
         baseline = self.config.get("baseline_year") or (
@@ -213,7 +211,6 @@ class ProcessingRun:
                      rec["rows_before"], rec["rows_after"])
         self._fail_if_any("analysis_failure")
 
-        # 3. Write outputs to staging and verify the exports by reloading them.
         write_analysis_outputs(analysis, out)
         export_checks, export_info = export_and_verify(canonical, out / "exports")
         self._add_rows("export_failure", export_checks)
@@ -221,7 +218,6 @@ class ProcessingRun:
                  "csv, json, parquet, xlsx; reload and compare", len(canonical), len(canonical))
         self._fail_if_any("export_failure")
 
-        # 4. Reports and summary.
         quarantine = pd.concat([sources[n]["quarantine"] for n in names], ignore_index=True)
         duplicates = pd.concat([sources[n]["duplicates"] for n in names], ignore_index=True)
         quarantine.to_csv(out / "quarantine.csv", index=False)
