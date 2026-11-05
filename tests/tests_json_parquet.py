@@ -25,3 +25,15 @@ class TestMember2Readers(unittest.TestCase):
         self.assertEqual(int(df["source_record"].iloc[0]), 1)
         self.assertEqual(int(df["source_record"].iloc[-1]), 1712)
         self.assertEqual(df["source_file"].iloc[0], self.json_spec["file"])
+    
+    def test_parquet_reader_recovers_1712_rows(self) -> None:
+        parquet_path = self.data_dir / self.parquet_spec["file"]
+        df = read_parquet_records(
+            file_path=parquet_path,
+            expected_sha256=self.parquet_spec["sha256"],
+            expected_bytes=self.parquet_spec["bytes"],
+        )
+        self.assertEqual(len(df), 1712)
+        self.assertEqual(int(df["source_record"].iloc[0]), 1)
+        self.assertEqual(int(df["source_record"].iloc[-1]), 1712)
+        self.assertEqual(df["source_file"].iloc[0], self.parquet_spec["file"])
