@@ -170,9 +170,11 @@ def build_analysis_checks(
     loop_index: np.ndarray,
     baseline_col: int = 0,
     expected_controls: Optional[Dict[str, Any]] = None,
+    expected_shape: Optional[Tuple[int, int]] = None,
 ) -> List[Dict[str, Any]]:
     """Analytical and NumPy check rows."""
     controls = expected_controls or {}
+    n_rows, n_cols = expected_shape or (len(DEFAULT_COUNTRIES), len(DEFAULT_MATRIX_YEARS))
     asia_total_np = asian_population_total_numpy(df, year)
     ph_pop_np = country_population_numpy(df, "Philippines", year)
     ph_row = asia_df.loc[asia_df["country"] == "Philippines", "pop"]
@@ -192,8 +194,8 @@ def build_analysis_checks(
             float(history["lifeExp_change"].iloc[-1]),
             FLOAT_ABS_TOL,
         ),
-        make_check("numpy_matrix_rows", len(DEFAULT_COUNTRIES), matrix.shape[0]),
-        make_check("numpy_matrix_cols", len(DEFAULT_MATRIX_YEARS), matrix.shape[1]),
+        make_check("numpy_matrix_rows", n_rows, matrix.shape[0]),
+        make_check("numpy_matrix_cols", n_cols, matrix.shape[1]),
         make_check("numpy_index_baseline_is_100", 0.0, float(np.abs(index[:, baseline_col] - 100.0).max()), FLOAT_ABS_TOL),
         make_check("numpy_broadcast_vs_loop", 0.0, float(np.abs(index - loop_index).max()), FLOAT_ABS_TOL),
     ]
