@@ -18,7 +18,6 @@ class ConflictingKeyError(Exception):
 
 
 def is_missing(value: Any) -> bool:
-    """Return True for None, NaN, blank text, or the strings 'None'/'nan'."""
     if value is None:
         return True
     if isinstance(value, (float, np.floating)) and math.isnan(value):
