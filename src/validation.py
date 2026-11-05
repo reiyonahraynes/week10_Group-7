@@ -15,7 +15,6 @@ MAX_LIFE_EXPECTANCY = 120.0
 
 
 class ConflictingKeyError(Exception):
-    """Raised when two valid rows share (country, year) but disagree elsewhere."""
 
 
 def is_missing(value: Any) -> bool:
@@ -28,7 +27,6 @@ def is_missing(value: Any) -> bool:
 
 
 def parse_number(value: Any) -> Tuple[Optional[float], Optional[str]]:
-    """Parse a value to float; return (number, None) or (None, 'missing'|'invalid'|'non-finite')."""
     if is_missing(value):
         return None, "missing"
     if isinstance(value, (bool, np.bool_)):
@@ -50,19 +48,16 @@ def parse_number(value: Any) -> Tuple[Optional[float], Optional[str]]:
 
 
 def build_rules(manifest: Dict[str, Any]) -> Dict[str, Any]:
-    """Build validation rules (sets of allowed values and numeric bounds) from the manifest."""
     return {"continents": set(manifest["allowed_continents"]),
             "years": {int(y) for y in manifest["allowed_years"]},
             "max_life_exp": MAX_LIFE_EXPECTANCY}
 
 
 def whole_number(number: float) -> Optional[int]:
-    """Return the integer value of a float, or None if it has a fractional part."""
     return int(number) if float(number).is_integer() else None
 
 
 def validate_record(record: Dict[str, Any], rules: Dict[str, Any]) -> Tuple[List[str], Dict[str, Any]]:
-    """Validate one record; return (reasons, typed row). Typed row is empty when rejected."""
     reasons: List[str] = []
     typed: Dict[str, Any] = {}
 
@@ -110,7 +105,6 @@ def validate_record(record: Dict[str, Any], rules: Dict[str, Any]) -> Tuple[List
 
 
 class ValidationRun:
-    """Tracks quarantined rows, removed duplicates and counts for one validation run."""
 
     def __init__(self, rules: Dict[str, Any]) -> None:
         """Store the rules and start with empty logs."""
@@ -120,7 +114,6 @@ class ValidationRun:
         self.counts: Dict[str, int] = {}
 
     def process(self, df: pd.DataFrame) -> pd.DataFrame:
-        """Validate rows, quarantine bad ones, drop exact duplicates, stop on conflicts."""
         missing = set(CANONICAL_COLUMNS) - set(df.columns)
         if missing:
             raise ValueError(f"missing required columns: {sorted(missing)}")
@@ -157,7 +150,6 @@ class ValidationRun:
         return table
 
     def quarantine_frame(self) -> pd.DataFrame:
-        """Return quarantined rows with their original values."""
         return pd.DataFrame(self.quarantine, columns=["source_file", "source_record", "reason"] + CANONICAL_COLUMNS)
 
     def duplicate_frame(self) -> pd.DataFrame:
