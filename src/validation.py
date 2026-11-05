@@ -8,14 +8,14 @@ import pandas as pd
 
 CANONICAL_COLUMNS: List[str] = ["country", "continent", "year", "lifeExp", "pop", "gdpPercap"]
 TEXT_FIELDS: Set[str] = {"country", "continent"}
-MISSING_TEXT: Set[str] = {"", "none", "nan", "null"}
+MISSING_TEXT: Set[str] = {"", "none", "nan", "null", "<na>"}
 NON_FINITE_TEXT: Set[str] = {"inf", "+inf", "-inf", "infinity", "+infinity", "-infinity"}
 NUMBER_PATTERN = re.compile(r"^[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?$")
 MAX_LIFE_EXPECTANCY = 120.0
 
 
 class ConflictingKeyError(Exception):
-
+    """Raised when two valid rows share a key but disagree."""
 
 def is_missing(value: Any) -> bool:
     if value is None:
