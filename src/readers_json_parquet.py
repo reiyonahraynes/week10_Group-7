@@ -4,6 +4,9 @@ from typing import Any, Dict, List, Optional
 import pandas as pd
 from src.readers import FileFormatError, validate_input_file
 
+def to_text_keep_missing(df: pd.DataFrame) -> pd.DataFrame:
+    """Convert every value to text but keep missing values as None."""
+    return df.apply(lambda col: col.map(lambda v: None if pd.isna(v) else str(v))).astype(object)
 
 def read_json_records(file_path: str | Path, records_key: str = "records", expected_sha256: Optional[str] = None, expected_bytes: Optional[int] = None,) -> pd.DataFrame:
     path = validate_input_file(file_path, expected_sha256 = expected_sha256, expected_bytes = expected_bytes)
@@ -22,7 +25,7 @@ def read_json_records(file_path: str | Path, records_key: str = "records", expec
             raise FileFormatError(f"JSON structure does not contain records list under '{records_key}'")
 
         df = pd.json_normalize(records)
-        df = df.astype(str)
+        df = to_text_keep_missing(df)
     except FileFormatError:
         raise
     except Exception as exc:
