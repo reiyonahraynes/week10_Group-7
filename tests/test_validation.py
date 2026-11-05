@@ -15,13 +15,13 @@ from typing import Any, Dict, List
 import pandas as pd
 
 from src.readers import read_csv_records, read_excel_records
-from src.readers2 import read_json_records, map_canonical_columns  # Member 2's module: adjust name
+from src.readers_json_parquet import read_json_records, map_canonical_columns  # Member 2's module: adjust name
 from src.validation import (CANONICAL_COLUMNS, ConflictingKeyError, ValidationRun,
                             build_rules, parse_number, validate_record)
 
 try:
     import pyarrow  # noqa: F401
-    from src.readers2 import read_parquet_records
+    from src.readers_json_parquet import read_parquet_records
     HAS_PARQUET = True
 except ImportError:
     HAS_PARQUET = False
