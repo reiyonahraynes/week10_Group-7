@@ -252,7 +252,7 @@ def run_analysis(
                   "rule": f"{len(countries)}x{len(matrix_years)} matrix, baseline {baseline_year}=100",
                   "rows_before": len(df), "rows_after": matrix.shape[0]})
 
-     checks = build_analysis_checks(df, year, asia_df, history, matrix, index, loop_index, baseline_col, expected_controls,
+    checks = build_analysis_checks(df, year, asia_df, history, matrix, index, loop_index, baseline_col, expected_controls,
                                    expected_shape=(len(countries), len(matrix_years)))
     return {
         "asia_selected_year": asia_df,
