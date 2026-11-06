@@ -1,5 +1,7 @@
 member,git_identity,branch,code_symbol,code_path,code_commit,test_path,test_commit,review_reference
-Member 1,LINDSAY NICOLE MALDIA <lindsaynicole.maldia@ust.edu.ph>,member1-readers,read_csv_records,src/readers.py,18fd55f0f05702a4b7a49eb5cf1e00be91220d20,tests/test_readers.py,a593c6405cc040227df492a0df45c4e2f0bf653f,pending
-Member 2,REIYONAH JASHEA RAYNES <reiyonahjashearaynes@gmail.com>,member2_readers_json_parquet,read_json_records,src/readers_json_parquet.py,91951dc9a3cddf42e5b2c042ac4efe03e4d19650,tests/tests_json_parquet.py,3e981d0000c833dc38f574ba80606038f5a2ad47, pending
+Member 1,LINDSAY NICOLE MALDIA <lindsaynicole.maldia@ust.edu.ph>,member1-readers,read_csv_records,src/readers.py,18fd55f0f05702a4b7a49eb5cf1e00be91220d20,tests/test_readers.py,a593c6405cc040227df492a0df45c4e2f0bf653f,good to go
+Member 2,REIYONAH JASHEA RAYNES <reiyonahjashearaynes@gmail.com>,member2_readers_json_parquet,read_json_records,src/readers_json_parquet.py,91951dc9a3cddf42e5b2c042ac4efe03e4d19650,tests/tests_json_parquet.py,3e981d0000c833dc38f574ba80606038f5a2ad47, good to go
+Member 3, FRANCESCA YSABELLE RIVERA <francescaysabelle.rivera@ust.edu.ph>,member3_reader_validation_cecks,ValidationRun,src/validation.py,4e52533d47ec90bedafd7f683b9a996c61a574d3,tests/test_validation.py,8cfaeb8c1b4664d86e5917464fd9feedeee71663,good to go
+Member 4,JEWEL HAVEN MANANSALA <jewelhaven.manansala@ust.edu.ph>,member4-analysis,asia_selected_year,src/analysis.py,06d94bf38379375ad4d4c1e7b65bdb9dfec5e2d6,tests/test_analysis.py,dfc471f902e3a584222c03f03ebac891183d46a4,good to go
 
-Member 4,JEWEL HAVEN MANANSALA <jewelhaven.manansala@ust.edu.ph>,member4-analysis,asia_selected_year,src/analysis.py,06d94bf38379375ad4d4c1e7b65bdb9dfec5e2d6,tests/test_analysis.py,dfc471f902e3a584222c03f03ebac891183d46a4,pending
+Member 5,THEO ELIJAH EMAAS <theoelijah.emaas@ust.edu.ph>,member5-exports,member5_compare,ProccessingRun,src/pipeline.py,9291f19ec3e4938879e8e377b010742955e64011,tests/test_pipeline.py,87254ddbe1cf236ab66620b0c4e1c6f7286ed519, good to go
