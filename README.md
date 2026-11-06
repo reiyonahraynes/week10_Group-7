@@ -61,4 +61,6 @@ src/compare.py, src/exports,oy, src/pipeline.py, main.py - cross-format comparis
 test/ -unit and end-to-end tests
 data/ - input files inside
 
-    
+## AI Use Disclosure
+
+AI was used as a guide and for debugging. Each member reviewed, ran, and tested their own code, and the group is responsible for all submitted work.
