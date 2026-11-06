@@ -1,3 +1,5 @@
 member,git_identity,branch,code_symbol,code_path,code_commit,test_path,test_commit,review_reference
 Member 1,LINDSAY NICOLE MALDIA <lindsaynicole.maldia@ust.edu.ph>,member1-readers,read_csv_records,src/readers.py,ee39a6b7627204dd225af046efcebaa81029822b,tests/test_readers.py,a3b9c2c5100c866f6c3df2e6224e9933aa92b563,pending
 Member 2,REIYONAH JASHEA RAYNES <reiyonahjashearaynes@gmail.com>,member2_readers_json_parquet,read_json_records,src/readers_json_parquet.py,91951dc9a3cddf42e5b2c042ac4efe03e4d19650,tests/tests_json_parquet.py,3e981d0000c833dc38f574ba80606038f5a2ad47, pending
+
+Member 4,Jewel Haven Manansala <jewelhaven.manansala@ust.edu.ph>,member4-analysis,asia_selected_year,src/analysis.py,06d94bf38379375ad4d4c1e7b65bdb9dfec5e2d6,tests/test_analysis.py,dfc471f902e3a584222c03f03ebac891183d46a4,pending
