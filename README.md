@@ -1,4 +1,8 @@
-# week10_Group-7
+## week10_Group-7
+**DSA4153 Programming for Data Science: Week 10 Group Programming Challenge
+Four-Format Data Recovery and Validation**
+
+This program recovers the same clean Gapminder dataset from four differently formatted files (CSV, Excel, JSON, Parquet), checks that the four recoveries agree, produces pandas and NumPy results, exports the clean data, and verifies the exported files.
 
 ## Directory Structure
 
@@ -34,3 +38,7 @@ reiyonahraynes-week10_group-7/
     ├── test_validation.py
     └── tests_json_parquet.py
 ```
+
+## Setup
+
+Requires **Python 3.10** or newer
