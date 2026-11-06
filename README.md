@@ -42,3 +42,23 @@ reiyonahraynes-week10_group-7/
 ## Setup
 
 Requires **Python 3.10** or newer
+
+
+## Run
+
+pip install -r requirements.txt
+python main.py       # full run, writes outputs/
+python main.py --year 1997     # same run for another reporting year
+python main.py --input data/conflicting_key.csv   # one file (exits 1 and publishes nothing on failure)
+python -m unittest discover -s tests -t .
+
+## Layout
+
+src/readers.py - CSV and Excel readers, config loading, and file checks
+src/readers_json_parquet.py - JSON and Parquet readers, and column mapping
+src/analysis.py - Pandas and NumPy analysis
+src/compare.py, src/exports,oy, src/pipeline.py, main.py - cross-format comparison, export, processingrun, commandline
+test/ -unit and end-to-end tests
+data/ - input files inside
+
+    
